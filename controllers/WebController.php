@@ -20,4 +20,12 @@ class WebController extends controller {
 	public function assign($key, $value) {
 		$this->sd[$key] = $value;
 	}
+
+	public function A($msg) {
+		echo $msg;
+	}
+
+	public function J($msg) {
+		echo json_encode($msg);
+	}
 }

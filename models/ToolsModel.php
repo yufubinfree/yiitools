@@ -10,7 +10,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
-class Tools extends Model
+class ToolsModel extends Model
 {
     public function test() {
         return 'a';
