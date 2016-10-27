@@ -23,7 +23,9 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
+<div class="container">
 <?= $content ?>
+</div>
 <?php $this->endBody() ?>
 </body>
 </html>

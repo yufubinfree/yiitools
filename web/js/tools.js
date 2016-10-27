@@ -38,9 +38,10 @@
                 dataType: 'text',
                 success: function(data){
                     if(actionName == 'LinkChange'
-
                     ) {
                         tools.result_both(data);
+                    } else if(actionName == 'ChangeJson') {
+                        tools.result('<pre>' + data + "</pre>");
                     } else if(actionName == 'ClearSame'
                         || actionName == 'Sort'
                         || actionName == 'KSort'
@@ -67,7 +68,7 @@
     };
 
     var init = function() {
-        if(CONFIG.type == 'funs') {
+        if(typeof(CONFIG) != "undefined" && CONFIG.type == 'funs') {
             tools.init();
         }
     };

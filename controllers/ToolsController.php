@@ -15,7 +15,7 @@ use app\controllers\WebController;
 class ToolsController extends WebController
 {
     # 工具需要用到的常用类
-    public $m = null; 
+    public $m = null;
     public $t = null; # 小工具类
     public $v = null; # 视图层
 
@@ -26,7 +26,8 @@ class ToolsController extends WebController
     public $sd = [];
     public $request = null;
 
-    public function init() {
+    public function init()
+    {
         parent::init();
         $this->enableCsrfValidation = false;
 
@@ -39,31 +40,42 @@ class ToolsController extends WebController
         $this->data = $this->getRequestData();
     }
 
-    public function getRequestData() {
+    public function getRequestData()
+    {
         return array(
             'texta' => $this->request->post('texta'),
             'textb' => $this->request->post('textb'),
         );
     }
 
-    public function actionIndex() {
-        $this->title = '常用链接';
+    public function actionIndex()
+    {
         return $this->render('index.tpl', $this->sd);
     }
 
-    public function actionLinkChange() {
+    public function actionTest()
+    {
+        $this->v->title = '测试页面';
+
+        return $this->render('test.tpl', $this->sd);
+    }
+
+    public function actionLinkChange()
+    {
         $this->A(urldecode($this->data['texta']));
     }
 
-    public function actionChangeJson() {
+    public function actionChangeJson()
+    {
         $this->A(print_r(json_decode($this->data['texta'], true), true));
     }
 
-    public function actionShowTime() {
+    public function actionShowTime()
+    {
         $data = $this->t->getArrayBack($this->data['texta']);
 
         $ret = array();
-        foreach($data as $v) {
+        foreach ($data as $v) {
             $ret[] = array(
                 'Value' => $v,
                 'Date'  => date("Y-m-d H:i:s", $v),
@@ -74,7 +86,8 @@ class ToolsController extends WebController
         echo $this->t->print_ar($ret);
     }
 
-    public function actionDiffData() {
+    public function actionDiffData()
+    {
         $dataa = $this->t->getArrayBack($this->data['texta']);
         $datab = $this->t->getArrayBack($this->data['textb']);
 
@@ -92,7 +105,7 @@ class ToolsController extends WebController
                 'Type'   => 'A > B',
                 'Result' => '<pre>' . print_r($ab, true) . '</pre>',
             ), array(
-                'Type'   => 'B > A', 
+                'Type'   => 'B > A',
                 'Result' => '<pre>' . print_r($ba, true) . '</pre>',
             ), array(
                 'Type'   => 'A & B',
@@ -101,51 +114,57 @@ class ToolsController extends WebController
         ));
     }
 
-    public function actionGetQr() {
+    public function actionGetQr()
+    {
         echo $this->t->qr($this->request->get('qr'));
     }
 
-    public function actionQrcode() {
+    public function actionQrcode()
+    {
         $data = $this->t->getArrayBack($this->data['texta']);
 
         $ret = array();
 
-        foreach($data as $v) {
+        foreach ($data as $v) {
             $ret[] = array(
                 'Data' => $v,
-                'QR'   => "<img src='/index.php?r=tools/get-qr&qr={$v}' style='width:100px;height:100px; margin-top:10px; margin-bottom:10px;' alt='{$v}'>" , 
+                'QR'   => "<img src='/index.php?r=tools/get-qr&qr={$v}' style='width:100px;height:100px; margin-top:10px; margin-bottom:10px;' alt='{$v}'>" ,
             );
         }
 
         echo $this->t->print_ar($ret);
     }
 
-    public function actionClearSame() {
+    public function actionClearSame()
+    {
         $data = $this->t->getArrayBack($this->data['texta']);
-        foreach(array_unique($data) as $v) {
+        foreach (array_unique($data) as $v) {
             echo $v . "\n";
         }
     }
 
-    public function actionSort() {
+    public function actionSort()
+    {
         $data = $this->t->getArrayBack($this->data['texta']);
         sort($data);
-        foreach($data as $v) {
+        foreach ($data as $v) {
             echo $v . "\n";
         }
     }
 
-    public function actionKSort() {
+    public function actionKSort()
+    {
         $data = $this->t->getArrayBack($this->data['texta']);
         sort($data);
-        foreach(array_reverse($data) as $v) {
+        foreach (array_reverse($data) as $v) {
             echo $v . "\n";
         }
     }
-    
-    public function actionUsefulThing() {
+
+    public function actionUsefulThing()
+    {
         $this->title = '转换工具';
 
-        return $this->render('index.tpl', $this->sd);
+        return $this->render('test.tpl', $this->sd);
     }
 }
